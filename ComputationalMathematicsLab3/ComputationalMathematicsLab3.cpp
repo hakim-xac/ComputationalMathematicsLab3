@@ -1,8 +1,12 @@
 #include <iostream>
+#include "InputData.h"
+#include "NumericalDifferentiation.h"
 
 
 int main() {
+    std::setlocale(LC_ALL, "Russian");
+    KHAS::NumericalDifferentiation nd{ KHAS::InputData{ 67 } };
+    nd.loop();
 
-	std::cout << "hello\n";
-	return 0;
+    return 0;
 }
