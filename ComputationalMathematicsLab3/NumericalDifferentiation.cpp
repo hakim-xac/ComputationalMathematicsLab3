@@ -35,15 +35,16 @@ void KHAS::NumericalDifferentiation::init() noexcept
 
 void KHAS::NumericalDifferentiation::fillValueTable(size_t size) noexcept
 {
+    constexpr const size_t prec{ 4 };
     value_table_.reserve(size);
     for (auto i{ data_.left_range }, ie{ data_.right_range }, step{ data_.step }; i < ie; i += step) {
-        value_table_.emplace_back(i, precision(mathFunc(i), 4), 0);
+        value_table_.emplace_back(i, precision(mathFunc(i), prec), 0);
     }
 }
 
 void KHAS::NumericalDifferentiation::fillExcatlyAndApproximatlyValueTable() noexcept
 {
-    constexpr const size_t prec{ 6 };
+    constexpr const size_t prec{ 4 };
     size_t size{ value_table_.size() };
 
     excatly_and_approximatly_value_table_.reserve(size-2);
@@ -143,12 +144,12 @@ void KHAS::NumericalDifferentiation::printValueTable(std::ostream& out) const no
 void KHAS::NumericalDifferentiation::printExactAndApproximateValues(std::ostream& out) const noexcept
 {
     constexpr const size_t width_step{ 8 };
+    constexpr const size_t precision{ 4 };
     size_t width{ (width_screen_ - width_step) / 3 };
     size_t div_width{ width_screen_ - width_step - width * 3 };
 
     size_t first_offset{ div_width == 1 || div_width == 2 ? 1ull : 0ull };
     size_t second_offset{ div_width == 2 ? 1ull : 0ull };
-    constexpr const size_t precision{ 4 };
 
     auto delim{ delimiter('-', width_screen_) };
     out << delim << "\n";
